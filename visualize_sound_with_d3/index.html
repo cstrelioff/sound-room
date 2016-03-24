@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sound-room &raquo; visualize sound with d3</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Chris Strelioff's sound-room -- sound experiments using the web audio api with html, css, js, svg and more.">
+    <meta name="author" content="Christopher Strelioff">
+    <meta name="keywords" content="js, html, css, d3js, svg, sound, music, oscillator, filter, fft">
+
+   
+    <!-- css --> 
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/sndrm.css" rel="stylesheet">
+    <link href="css/visd3.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  
+  </head>
+
+  <body>
+
+  <div class="container">
+
+    <!-- Static navbar -->
+    <div class="page-header">
+      <h1>sound-room &raquo; visualize sound with d3</h1>
+
+      <ol class="breadcrumb">
+        <li><a href="../index.html">index</a></li>
+        <li class="active">visualize sound with d3</li>
+      </ol>
+      
+    </div>
+
+    <!-- main page content -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+
+        <h3>wave</h3>
+        <div id="d3_viz_wave"></div>
+
+        <h3>fft</h3>
+        <div id="d3_viz_fft"></div>
+
+
+      </div><!-- end col -->
+
+      <div class="col-xs-12 col-sm-4">
+        <h3>details</h3>
+
+        <p>The goal here is to visualize the waveform and spectra from web
+        audio api oscilators -- sine, square, sawtooth and triangle.
+        </p>
+
+        <div id="audio_div"
+             style="padding: 20px 0px;">
+          <button id="play">
+           play
+          </button>
+          <button id="stop">
+           stop
+          </button>
+           
+          <form>
+            <input type="radio" name="wave" value="sine" checked> sine<br />
+            <input type="radio" name="wave" value="sawtooth"> sawtooth<br />
+            <input type="radio" name="wave" value="square"> square<br />
+            <input type="radio" name="wave" value="triangle"> triangle
+           </form> 
+        </div>
+      </div><!-- end col -->
+
+    </div><!-- end row -->
+
+    <!-- footer -->
+    <footer class="container-fluid text-center">
+      <p>
+        &copy; 2016 - &nbsp; Christopher C. Strelioff
+      </p>
+      <p>
+        <a target="_blank" href="http://getbootstrap.com">bootstrap</a>
+        <a target="_blank"  href="http://bootswatch.com/">[ sandstone theme ]</a>
+      </p>
+    </footer>
+
+  </div> <!-- end fullpage container -->
+
+  <!-- javascript links -->
+  <script src="../js/jquery-1.12.0.min.js" type="text/javascript"></script>
+  <script src="../js/bootstrap-3.3.6.min.js" type="text/javascript"></script>
+  <script src="../js/d3.min.js" type="text/javascript"></script>
+  <script src="js/visd3.js" type="text/javascript"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-75502938-1', 'auto');
+    ga('send', 'pageview');
+  
+  </script>
+
+  </body>
+</html>

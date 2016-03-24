@@ -1,0 +1,35 @@
+body {
+ font-size: 12pt;
+}
+
+footer {
+  margin-top: 20px;
+  padding: 20px 0px;
+  border-top: 1px solid #dfd7ca;
+}
+
+/* overide colors for links in sandstone theme */
+a {
+  color: #547425;
+}
+a:hover {
+  color: #79a736;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #dfd7ca;
+}
+
+.page-header {
+  margin: 10px 0px;
+  border-bottom: none;
+}
+
+.ul-vizdiv {
+  padding-left: 15px;
+  margin: 5px 0px;
+  list-style-type: circle;
+}
+
