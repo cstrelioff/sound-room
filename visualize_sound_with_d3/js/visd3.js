@@ -25,7 +25,7 @@ $(document).ready(function() {
   // init freqData --- for FFT
   var freqData = new Float32Array(analyser.frequencyBinCount);
 
-  // inie waveData --- for waveform
+  // init waveData --- for waveform
   var waveData = new Float32Array(analyser.fftSize);
 
   // start osc
@@ -54,26 +54,27 @@ $(document).ready(function() {
 
   // fft
   //
+  analyser.getFloatFrequencyData(freqData);
   svg_fft = d3.select('#d3_viz_fft')
               .append('svg')
               .attr('height', HEIGHT)
               .attr('width', WIDTH);
 
-  // create initial fft plot
-  analyser.getFloatFrequencyData(freqData);
-  svg_fft.selectAll('rect')
-         .data(freqData)
-         .enter()
-         .append('rect')
-         .attr('x', function (d, i) {
-           return i * (WIDTH / freqData.length);
-         })
-         .attr('y', function(d, i) {
-           return HEIGHT;
-         })
-         .attr('height', 0)
-         .attr('width', WIDTH / freqData.length)
-         .attr('fill', '#3e3f3a');
+  // create scales
+  x_fft = d3.scale.linear()
+            .domain([0, freqData.length-1])
+            .range([0, WIDTH]);
+
+  y_fft = d3.scale.linear()
+              .domain([-190, -10])
+              .range([HEIGHT, 0]);
+
+  // add line 
+  var line_fft = d3.svg.line()
+                   .x(function(d,i) {return x_fft(i);})
+                   .y(function(d) {return y_fft(d);});
+  svg_fft.append("path")
+         .attr("d", line_fft(freqData));
 
   // wave
   //
@@ -83,52 +84,36 @@ $(document).ready(function() {
                .attr('height', HEIGHT)
                .attr('width', WIDTH);
 
-  svg_wave.selectAll('circle')
-          .data(waveData)
-          .enter()
-          .append('circle')
-          .attr('cx', function (d, i) {
-            return i * (WIDTH / waveData.length);
-          })
-          .attr('cy', function(d, i) {
-            return HEIGHT/2;
-          })
-          .attr('r', 3)
-          .attr('fill', '#3e3f3a');
+  // create scales
+  x_wave = d3.scale.linear()
+              .domain([0, waveData.length-1])
+              .range([0, WIDTH]);
 
+  y_wave = d3.scale.linear()
+              .domain([-1, 1])
+              .range([0, HEIGHT]);
 
+  // add line 
+  var line_wave = d3.svg.line()
+                    .x(function(d,i) {return x_wave(i);})
+                    .y(function(d) {return y_wave(d);});
+  svg_wave.append("path")
+          .attr("d", line_wave(waveData));
+
+  // update charts using requestAnimateFrame
   function renderChart() {
-    // Continuously loop and update chart with frequency data.
     requestAnimationFrame(renderChart);
 
-    // get fft data from analyser
+    // get fft data and update plot
     analyser.getFloatFrequencyData(freqData);
+    svg_fft.selectAll("path")
+           .attr("d", line_fft(freqData));
 
-    // Update d3 chart with new data.
-    svg_fft.selectAll('rect')
-           .data(freqData)
-           .attr('y', function(d) {
-              var bar_height = (d + 140)*2;
-              return HEIGHT - bar_height/2;
-           })
-           .attr('height', function(d) {
-              var bar_height = (d + 140)*2;
-              return bar_height/2;
-           });
-
-    // get wave data
+    // get wave data and update plot
     analyser.getFloatTimeDomainData(waveData);
-
-    svg_wave.selectAll('circle')
-            .data(waveData)
-            .attr('cy', function(d, i) {
-              return HEIGHT/2 * (1 + d);
-            });
-
-
-    // log data
-    //console.log(freqData);
-
+    svg_wave.selectAll("path")
+            .attr("d", line_wave(waveData));
+ 
   }
 
   // Run the loop
