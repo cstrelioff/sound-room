@@ -10,11 +10,12 @@ footer {
 
 /* overide colors for links in sandstone theme */
 a {
-  color: #547425;
+  color: #2d5b00;
 }
 a:hover {
   color: #79a736;
 }
+
 
 .breadcrumb {
   background-color: transparent;
